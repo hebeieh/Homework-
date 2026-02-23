@@ -1,0 +1,43 @@
+import matplotlib.pyplot as plt
+import networkx as nx
+
+ways = {
+    'A': ['B', 'C', 'D', 'E'],
+    'B': ['E'],
+    'C': ['A', 'D'],
+    'D': ['A', 'E'],
+    'E': ['A', 'B', 'D'],
+}
+
+G = nx.Graph()
+
+for city in ways.keys():
+    G.add_node(city)
+
+for where_from, where_list in ways.items():
+    for where in where_list:
+        G.add_edge(where_from, where)
+
+position = {
+    'A': (0, 4),
+    'B': (2, 4),
+    'C': (0, 2),
+    'D': (2, 2),
+    'E': (4, 3),
+}
+
+plt.figure(figsize=(12, 8))
+
+nx.draw_networkx_nodes(G, pos, node_color='lightgreen', 
+                      node_size=2000, node_shape='o',
+                      edgecolors='darkgreen', linewidths=2)
+
+nx.draw_networkx_labels(G, pos, font_size=14, font_weight='bold')
+
+nx.draw_networkx_edges(G, pos, edge_color='brown', 
+                      width=2, style='solid')
+                      
+plt.axis('off')
+plt.title("Схема дорог", fontsize=16, pad=20)
+plt.tight_layout()
+plt.show()

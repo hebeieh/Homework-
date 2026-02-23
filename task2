@@ -1,0 +1,29 @@
+ways = {
+    'А': ['Б', 'В', 'Г', 'Д'],
+    'Б': ['В', 'Е'],
+    'В': ['Е', 'Ж'],
+    'Г': ['В', 'Ж'],
+    'Д': ['Г', 'Ж', 'З'],
+    'Е': ['Ж', 'И'],
+    'Ж': ['И'], 
+    'З': ['Ж', 'И'],
+    'И': []
+}
+
+all_ways = []
+
+def search_ways(city, old_way):
+    new_way = old_way + [city]
+    
+    if city == 'И':
+        if 'В' in new_way:
+            all_ways.append(new_way)
+        return
+    
+    for next in ways.get(city, []):
+        if next not in new_way:
+            search_ways(next, new_way)
+
+search_ways('А', [])
+
+print(f"Всего путей: {len(all_ways)}")
